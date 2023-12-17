@@ -87,7 +87,5 @@ void ParquetWriter::Write(const string &value) {
   PARQUET_ASSIGN_OR_THROW(table, reader->Read());
 
   // convert arrow table to record batch, write out
-  std::shared_ptr<arrow::RecordBatch> batch;
-  PARQUET_ASSIGN_OR_THROW(batch, table->CombineChunksToBatch());
-  PARQUET_THROW_NOT_OK(parquet_writer_->WriteRecordBatch(*batch));
+  PARQUET_THROW_NOT_OK(parquet_writer_->WriteTable(*table));
 }
